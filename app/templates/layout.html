@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {% if title %}
+    <title>Flask Blog - {{ title }}</title>
+    {% else %}
+    <title>Flask Blog</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/"><h2>BEASTnom</h2></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="/"><h5>Home</h5></a>
+                        <a class="nav-item nav-link" href="/about"><h5>About</h5></a>
+                    </div>
+                    <div class="navbar-nav">
+                        {% if current_user.is_authenticated %}
+                            <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}"><h5>New Post</h5></a>
+                            <a class="nav-item nav-link" href="{{ url_for('users.account') }}"><h5>account</h5></a>
+                            <a class="nav-item nav-link" href="{{ url_for('users.logout') }}"><h5>Logout</h5></a>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{{ url_for('users.login') }}"><h5>Login</h5></a>
+                            <a class="nav-item nav-link" href="{{ url_for('users.register') }}"><h5>Register</h5></a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container" style="margin-top: 5rem; margin-bottom: 150px;"> <!-- Added margin-bottom to create space between content and footer -->
+        <div class="row">
+            <div class="col-md-8">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-md-4">
+                <div class="content-section">
+                    <h3>Our Sidebar</h3>
+                    <div class="quotes-box">
+                        <p class="quote">"it's oKAY not to be oK"</p>
+                        <p class="quote-author">-UNknOWn</p>
+                    </div>
+                   
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-light">Latest Posts</li>
+                            <li class="list-group-item list-group-item-light">Announcements</li>
+                            <li class="list-group-item list-group-item-light">Calendars</li>
+                            <li class="list-group-item list-group-item-light">etc</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="BEASTnom Logo" style="height: 150px; margin-top: 10px;"> <!-- Added logo -->
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: info@beastnom.com</li>
+                        <li>Phone: +1234567890</li>
+                        <li>Address: 123 Street, City, Country</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center">© 2024 BEASTnom. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        var siteHeader = document.querySelector(".site-header");
+        
+        var siteFooter = document.querySelector(".site-footer");
+    
+        window.onscroll = function() {
+            var currentScrollPos = window.pageYOffset;
+            if (prevScrollpos > currentScrollPos) {
+                siteHeader.classList.remove("scroll-up");
+                siteHeader.classList.add("scroll-down");
+                siteFooter.style.bottom = "0";
+            } else {
+                siteHeader.classList.remove("scroll-down");
+                siteHeader.classList.add("scroll-up");
+                siteFooter.style.bottom = "-300px"; /* Adjust as needed */
+            }
+            if (currentScrollPos == 0) {
+                siteHeader.classList.remove("scroll-up");
+                siteHeader.classList.add("scroll-up");
+            }
+            prevScrollpos = currentScrollPos;
+        }
+    </script>
+</body>
+</html>
