@@ -4,6 +4,7 @@ from app import db
 from app.model import Post
 from app.posts.forms import PostForm
 
+
 posts = Blueprint('posts', __name__)
 
 @posts.route("/post/new", methods=['GET', 'POST'])
