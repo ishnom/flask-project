@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .site-header .navbar-nav .nav-link:hover::after {
-    background-color: #f1c40f; /* Yellow */
+    background-color: #f10f0f; /* Yellow */
 }
 
 /* Main content styling */
@@ -129,7 +129,7 @@ a.article-title:hover {
 
 .content-section .list-group-item:hover,
 .content-section .list-group-item.active {
-    border-color: #f00; /* Light red */
+    border-color: rgb(223, 15, 15); /* Light red */
 }
 
 .site-footer {
@@ -164,7 +164,7 @@ a.article-title:hover {
 }
 
 .site-footer ul li a:hover {
-    color: #f1c40f; /* Yellow on hover */
+    color: #cb0d2f; /* Yellow on hover */
 }
 
 /* Media Queries for Responsiveness */
